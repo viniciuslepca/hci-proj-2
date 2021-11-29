@@ -1,14 +1,7 @@
 import './App.css';
 import React, {useState} from 'react';
-import {Navbar, Nav, Form} from 'react-bootstrap';
-import {
-    Chart as ChartJS,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Tooltip,
-    Legend,
-} from 'chart.js';
+import {Form, Nav, Navbar} from 'react-bootstrap';
+import {Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Tooltip,} from 'chart.js';
 import {Scatter} from 'react-chartjs-2';
 
 let foodWasteData = require("./food_waste.json");
@@ -19,19 +12,32 @@ class App extends React.Component {
         super(props);
         this.state = {
             data: foodWasteData,
-            countries: []
+            countries: [],
+            colors: {}
         }
     }
 
-    getCountries = () => {
+    getRandomRgb = () => {
+        const num = Math.round(0xffffff * Math.random());
+        const r = num >> 16;
+        const g = (num >> 8) & 255;
+        const b = num & 255;
+        return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    }
+
+    getCountriesAndColors = () => {
         let countries = this.state.countries;
         this.state.data.map(item => countries.includes(item.country) ? null : countries.push(item.country));
         countries.sort()
-        this.setState({countries: countries})
+
+        let colors = {}
+        countries.forEach(country => colors[country] = this.getRandomRgb());
+        console.log("colors", colors)
+        this.setState({countries: countries, colors: colors})
     }
 
     componentDidMount() {
-        this.getCountries();
+        this.getCountriesAndColors();
     }
 
     render() {
@@ -41,7 +47,7 @@ class App extends React.Component {
                 <div style={{margin: 20}}>
                     <div style={{textAlign: "center"}}>
                         <Introduction/>
-                        <WorldDataVis data={this.state.data} countries={this.state.countries}/>
+                        <WorldDataVis data={this.state.data} countries={this.state.countries} colors={this.state.colors}/>
                     </div>
                     <References/>
                 </div>
@@ -75,7 +81,7 @@ class WorldDataVis extends React.Component {
         super(props);
         const earliestYear = 2000;
         const defaultBeginYear = 2000;
-        const endYear = 2021
+        const endYear = 2021;
         this.state = {
             earliestYear: earliestYear,
             defaultBeginYear: defaultBeginYear,
@@ -86,14 +92,6 @@ class WorldDataVis extends React.Component {
         }
     }
 
-    getRandomRgb = () => {
-        const num = Math.round(0xffffff * Math.random());
-        const r = num >> 16;
-        const g = (num >> 8) & 255;
-        const b = num & 255;
-        return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-    }
-
     generateData = (earliest, latest, countries) => {
         // Format the data
         let formatted = {};
@@ -101,27 +99,28 @@ class WorldDataVis extends React.Component {
             const country = item.country;
             const year = item.year;
             const loss = item.loss_percentage;
-            // const commodity = item.commodity;
+            const commodity = item.commodity;
 
             // Filter by countries
             if (countries == null || countries.includes(country)) {
                 // Filter by years
                 if (year >= earliest && year <= latest) {
                     if (formatted.hasOwnProperty(country)) {
-                        formatted[country].data.push({x: year, y: loss})
+                        formatted[country].data.push({x: year, y: loss, country: country, commodity: commodity})
                     } else {
                         formatted[country] = {
                             label: country,
-                            data: [{x: year, y: loss}],
-                            backgroundColor: this.getRandomRgb()
+                            data: [{x: year, y: loss, country: country, commodity: commodity}],
+                            backgroundColor: this.props.colors[country]
                         }
                     }
                 }
             }
         })
 
+        const sortedDatasets = Object.values(formatted).sort((i1, i2) => i1.label.localeCompare(i2.label))
         const data = {
-            datasets: Object.values(formatted)
+            datasets: sortedDatasets
         }
 
         // Update the state
@@ -133,22 +132,53 @@ class WorldDataVis extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevState.beginYear !== this.state.beginYear) {
+        if (prevState.beginYear !== this.state.beginYear || prevProps.colors !== this.props.colors) {
             this.generateData(this.state.beginYear, this.state.endYear, this.state.selectedCountry);
         }
     }
 
     render() {
-        console.log("Data:", this.props.data);
-        console.log("Countries:", this.props.countries);
-        console.log("Plot data", this.state.plotData);
+        // console.log("Data:", this.props.data);
+        // console.log("Countries:", this.props.countries);
+        // console.log("Plot data", this.state.plotData);
 
         const options = {
             scales: {
                 y: {
                     beginAtZero: true,
+                    title: {
+                        text: "Food Loss Percentage",
+                        display: true,
+                        color: "black"
+                    }
                 },
+                x: {
+                    title: {
+                        text: "Year",
+                        display: true,
+                        color: "black"
+                    }
+                }
             },
+            plugins: {
+                legend: {
+                    maxHeight: 2000
+                },
+                tooltip: {
+                    callbacks: {
+                        label: context => {
+                            // console.log(context.dataset.data, context.dataset.data[0]);
+                            const index = context.dataIndex;
+                            const item = context.dataset.data[index];
+                            const country = item.country;
+                            const commodity = item.commodity;
+                            const year = item.x;
+                            const loss = item.y;
+                            return "Country: " + country + "; Commodity: " + commodity + "; Year: " + year + "; Percentage Loss: " + loss;
+                        }
+                    }
+                }
+            }
         };
         return (
             <div>
@@ -159,7 +189,7 @@ class WorldDataVis extends React.Component {
                     value={this.state.beginYear}
                     setValue={value => this.setState({beginYear: value})}
                 />
-                <Scatter option={options} data={this.state.plotData}/>
+                <Scatter options={options} data={this.state.plotData}/>
             </div>
         );
     }
