@@ -1,21 +1,43 @@
 import './App.css';
 import {Navbar, Nav} from 'react-bootstrap';
-import Papa from 'papaparse';
 import React from "react";
 
-function App() {
-    return (
-        <div className="App">
-            <AppNav/>
-            <div style={{margin: 20}}>
-                <div style={{textAlign: "center"}}>
-                    <Introduction/>
-                    <WorldDataVis/>
+let foodWasteData = require("./food_waste.json");
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: foodWasteData,
+            countries: []
+        }
+    }
+
+    getCountries = () => {
+        let countries = this.state.countries;
+        this.state.data.map(item => countries.includes(item.country) ? null : countries.push(item.country));
+        countries.sort()
+        this.setState({countries: countries})
+    }
+
+    componentDidMount() {
+        this.getCountries();
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <AppNav/>
+                <div style={{margin: 20}}>
+                    <div style={{textAlign: "center"}}>
+                        <Introduction/>
+                        <WorldDataVis data={this.state.data} countries={this.state.countries}/>
+                    </div>
+                    <References/>
                 </div>
-                <References/>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 function AppNav() {
@@ -39,25 +61,9 @@ function Introduction() {
 }
 
 class WorldDataVis extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: []
-        }
-        this.getData()
-    }
-
-    getData = () => {
-        const dataUrl = "/FoodLoss/_w_3afac92c/session/051b790071ac109e65dc118a665828eb/download/Data.csv?w=3afac92c";
-        Papa.parse(dataUrl, {
-            header: true,
-            download: true,
-            complete: results => this.setState({data: results.data})
-        })
-    }
-
     render() {
-        console.log(this.state.data);
+        console.log("Data:", this.props.data);
+        console.log("Countries:", this.props.countries);
         return (
             <div>
                 Test
