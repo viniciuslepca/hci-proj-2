@@ -1,5 +1,7 @@
 import './App.css';
 import {Navbar, Nav} from 'react-bootstrap';
+import Papa from 'papaparse';
+import React from "react";
 
 function App() {
     return (
@@ -8,7 +10,7 @@ function App() {
             <div style={{margin: 20}}>
                 <div style={{textAlign: "center"}}>
                     <Introduction/>
-
+                    <WorldDataVis/>
                 </div>
                 <References/>
             </div>
@@ -34,6 +36,34 @@ function Introduction() {
         <h5 style={{fontWeight: "normal"}}>Team members: Emma Guo, Kaitlynn Pineda, Vinicius Lepca</h5>
         <p>Introduction text</p>
     </div>
+}
+
+class WorldDataVis extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: []
+        }
+        this.getData()
+    }
+
+    getData = () => {
+        const dataUrl = "/FoodLoss/_w_3afac92c/session/051b790071ac109e65dc118a665828eb/download/Data.csv?w=3afac92c";
+        Papa.parse(dataUrl, {
+            header: true,
+            download: true,
+            complete: results => this.setState({data: results.data})
+        })
+    }
+
+    render() {
+        console.log(this.state.data);
+        return (
+            <div>
+                Test
+            </div>
+        );
+    }
 }
 
 function References() {
