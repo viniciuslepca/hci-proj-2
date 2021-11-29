@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, {useState} from 'react';
 import {Navbar, Nav, Form} from 'react-bootstrap';
 import {
     Chart as ChartJS,
@@ -73,8 +73,8 @@ function Introduction() {
 class WorldDataVis extends React.Component {
     constructor(props) {
         super(props);
-        const earliestYear = 1965;
-        const defaultBeginYear = 1990;
+        const earliestYear = 2000;
+        const defaultBeginYear = 2000;
         const endYear = 2021
         this.state = {
             earliestYear: earliestYear,
@@ -112,7 +112,7 @@ class WorldDataVis extends React.Component {
                     } else {
                         formatted[country] = {
                             label: country,
-                            data: [{x: year, y:loss}],
+                            data: [{x: year, y: loss}],
                             backgroundColor: this.getRandomRgb()
                         }
                     }
@@ -130,6 +130,12 @@ class WorldDataVis extends React.Component {
 
     componentDidMount() {
         this.generateData(this.state.beginYear, this.state.endYear, this.state.selectedCountry);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.beginYear !== this.state.beginYear) {
+            this.generateData(this.state.beginYear, this.state.endYear, this.state.selectedCountry);
+        }
     }
 
     render() {
@@ -160,11 +166,16 @@ class WorldDataVis extends React.Component {
 }
 
 function YearRangeSlider(props) {
+    const [displayValue, setDisplayValue] = useState(props.value);
+
     return (
         <>
-            <Form.Label>Year Range: {props.value} - 2021</Form.Label><br/>
+            <Form.Label>Year Range: {displayValue} - 2021</Form.Label><br/>
             Select start of range:
-            <Form.Range min={props.earliest} max={props.latest} defaultValue={props.defaultValue} onChange={e => props.setValue(e.target.value)}/>
+            <Form.Range min={props.earliest} max={props.latest} defaultValue={props.defaultValue}
+                        onChange={e => setDisplayValue(e.target.value)}
+                        onMouseUp={e => props.setValue(e.target.value)}
+            />
         </>
     )
 }
