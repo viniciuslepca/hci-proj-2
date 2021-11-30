@@ -7,3 +7,11 @@
     background-size: cover;
     margin: 7px 0;
 }
+
+#title {
+    height: 150px;
+    text-align: center;
+    background-image: url("food_waste.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}

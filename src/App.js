@@ -145,7 +145,7 @@ function AppNav() {
 
 function Introduction() {
     return <div id="introduction" style={{textAlign: "left"}}>
-        <div style={{height: 150, textAlign: "center", backgroundImage: `url("https://www.fix.com/assets/content/15725/understanding-food-waste-open-graph.png")`}}>
+        <div id="title">
             <div style={{padding: 30}}>
                 <h1>Food Waste in the World</h1>
                 <h5 style={{fontWeight: "normal"}}>Team members: Emma Guo, Kaitlynn Pineda, Vinicius Lepca</h5>
