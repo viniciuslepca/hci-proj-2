@@ -102,7 +102,7 @@ function WorldMap() {
         <>
             <div className="flourish-embed flourish-map" data-src="visualisation/7979215">
                 <Helmet>
-                    <script src="https://public.flourish.studio/resources/embed.js"></script>
+                    <script src="https://public.flourish.studio/resources/embed.js"/>
                 </Helmet>
             </div>
         </>
@@ -152,7 +152,7 @@ function Introduction() {
             </div>
         </div>
         <h5>Introduction</h5>
-        <p>Food waste is a far-reaching problem with enormous environmental, ethical and financial costs globally. According to the Food and Agriculture Organization (FAO) of the United Nations, an estimated 1.3 billion tonnes of food is wasted across the world each year, which is one third of all food produced for human consumption. The majority of food wasted each year is estimated to come from households.
+        <p>Food waste is a far-reaching problem with enormous environmental, ethical and financial costs globally. According to the Food and Agriculture Organization (FAO) of the United Nations, an estimated 1.3 billion tons of food is wasted across the world each year, which is one third of all food produced for human consumption. The majority of food wasted each year is estimated to come from households.
             Land is a limited and valuable source of Earth, but 28% of the world’s agricultural area that is used to produce food is eventually lost or wasted each year. The amount of food wasted or lost is enough to feed 815 million, which is four times the number of hungry people in the world.
         </p>
         <p>
