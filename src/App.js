@@ -53,12 +53,15 @@ class App extends React.Component {
                     <div style={{textAlign: "center"}}>
                         <Introduction/>
                         <WorldMap/>
-                        <p style={{textAlign: "left"}}>Below, you can see a word cloud that represents how commonly each type of food is wasted</p>
+                        <p style={{textAlign: "left"}}>Below, you can see a word cloud that represents how commonly each type of food is wasted (percentage)</p>
                         <FoodWasteWordCloud data={this.state.data}/>
+                        <Divider/>
                         <FoodLossText/>
                         <WorldDataVis data={this.state.data} countries={this.state.countries} colors={this.state.colors}/>
+                        <Divider/>
                         <USFoodWaste/>
                         <USDataVis data={this.state.data.filter(item => item.country === "United States of America")} getRandomRgb={this.getRandomRgb}/>
+                        <Divider/>
                         <Solutions/>
                     </div>
                     <References/>
@@ -84,7 +87,7 @@ function FoodWasteWordCloud(props) {
     for (const [key, arr] of Object.entries(grouped)) {
         words.push({
             text: key,
-            value: arr.reduce((a, b) => a + b) / arr.length
+            value: (arr.reduce((a, b) => a + b) / arr.length).toFixed(2)
         })
     }
     console.log(words)
@@ -142,9 +145,11 @@ function AppNav() {
 
 function Introduction() {
     return <div id="introduction" style={{textAlign: "left"}}>
-        <div style={{textAlign: "center"}}>
-            <h1>Food Waste in the World</h1>
-            <h5 style={{fontWeight: "normal"}}>Team members: Emma Guo, Kaitlynn Pineda, Vinicius Lepca</h5>
+        <div style={{height: 150, textAlign: "center", backgroundImage: `url("https://www.fix.com/assets/content/15725/understanding-food-waste-open-graph.png")`}}>
+            <div style={{padding: 30}}>
+                <h1>Food Waste in the World</h1>
+                <h5 style={{fontWeight: "normal"}}>Team members: Emma Guo, Kaitlynn Pineda, Vinicius Lepca</h5>
+            </div>
         </div>
         <h5>Introduction</h5>
         <p>Food waste is a far-reaching problem with enormous environmental, ethical and financial costs globally. According to the Food and Agriculture Organization (FAO) of the United Nations, an estimated 1.3 billion tonnes of food is wasted across the world each year, which is one third of all food produced for human consumption. The majority of food wasted each year is estimated to come from households.
@@ -438,9 +443,13 @@ function Solutions() {
             If we don’t do something about it, food loss and waste is predicted to grow. The challenge isn’t to produce less food, but to waste less during the process. There’s many things that can be done at the consumer and household level. FAO suggests a range of way to waste less food:<br/>
             <b>Understand food labelling:</b> There’s a big difference between “best before” and “use-by” dates. Sometimes food is still safe to eat after the “best before” date, whereas it’s the “use-by” date that tells you when it is no longer safe to eat. Check food labels for unhealthy ingredients such as trans fats and preservatives and avoid foods with added sugar or salt.<br/>
             <b>Support Local Food Producers:</b> By buying local produce, you support family farmers and small businesses in your community. You also help fight pollution by reducing delivery distances for trucks and other vehicles.<br/>
-            <b>Pick Ugly Fruit and Veggies:</b> Don’t judge food by its appearance! Oddly-shaped or bruised fruits and vegetables are often thrown away because they don’t meet arbitrary cosmetic standards. Don’t worry - they taste the same! Use mature fruit for smoothies, juices and desserts.<br/>
+            <b>Pick "Ugly" Fruit and Veggies:</b> Don’t judge food by its appearance! Oddly-shaped or bruised fruits and vegetables are often thrown away because they don’t meet arbitrary cosmetic standards. Don’t worry - they taste the same! Use mature fruit for smoothies, juices and desserts.<br/>
         </p>
     </div>
+}
+
+function Divider() {
+    return <div className="divider"/>
 }
 
 function References() {
