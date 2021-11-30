@@ -72,7 +72,13 @@ function Introduction() {
     return <div id="introduction">
         <h1>Food Waste in the World</h1>
         <h5 style={{fontWeight: "normal"}}>Team members: Emma Guo, Kaitlynn Pineda, Vinicius Lepca</h5>
-        <p>Introduction text</p>
+        <p>Food waste is a far-reaching problem with enormous environmental, ethical and financial costs globally. According to the Food and Agriculture Organization (FAO) of the United Nations, an estimated 1.3 billion tonnes of food is wasted across the world each year, which is one third of all food produced for human consumption. The majority of food wasted each year is estimated to come from households.
+            Land is a limited and valuable source of Earth, but 28% of the world’s agricultural area that is used to produce food is eventually lost or wasted each year. The amount of food wasted or lost is enough to feed 815 million, which is four times the number of hungry people in the world.
+        </p>
+        <p>
+            Below, we can see a plot of food loss around the world. You can click on the labels to include or exclude them from the representation, as well as use the range selector to choose
+            the starting year.
+        </p>
     </div>
 }
 
