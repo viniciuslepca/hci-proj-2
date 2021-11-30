@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {Form, Nav, Navbar, Dropdown} from 'react-bootstrap';
 import {Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Tooltip,} from 'chart.js';
 import {Scatter} from 'react-chartjs-2';
+import {Helmet} from "react-helmet";
 
 let foodWasteData = require("./food_waste.json");
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
@@ -47,6 +48,8 @@ class App extends React.Component {
                 <div style={{margin: 20}}>
                     <div style={{textAlign: "center"}}>
                         <Introduction/>
+                        <WorldMap/>
+                        <FoodLossText/>
                         <WorldDataVis data={this.state.data} countries={this.state.countries} colors={this.state.colors}/>
                         <USFoodWaste/>
                         <USDataVis data={this.state.data.filter(item => item.country === "United States of America")} getRandomRgb={this.getRandomRgb}/>
@@ -57,6 +60,40 @@ class App extends React.Component {
             </div>
         );
     }
+}
+
+function WorldMap() {
+    return (
+        <>
+            <div className="flourish-embed flourish-map" data-src="visualisation/7979215">
+                <Helmet>
+                    <script src="https://public.flourish.studio/resources/embed.js"></script>
+                </Helmet>
+            </div>
+        </>
+    )
+}
+
+function FoodLossText() {
+    return <div style={{textAlign: "left"}}>
+        <h5>How the COVID-19 pandemic influenced food waste</h5>
+        <p>
+            Before Covid-19, households were pinpointed as the largest source of food waste. However, the increased time at home because of the quarantine improved the consumer’s cooking practices and food management skills,
+            which led to an efficient food production at the consumer level that may somehow reduce food waste. Even though the pandemic has created massive disruptions in the food system and severe food shortages and people have better food management skills,
+            the problem of food waste still exists because food cannot reach the consumers end.
+            At the start of the pandemic, there were reports of farmers in the US and the UK dumping millions of liters of milk daily due to disrupted supply routes.
+        </p>
+        <h5>Food Loss and Waste</h5>
+        <p>
+            Global food waste is estimated at 1.3 billion tons per year, as FAO mentioned. Fresh fruits and vegetables lead global food waste at 45% of the global food production, with food waste from residential homes one of the largest rates.
+            The USDA estimates that food loss in the United States comprised 31% of the food supply at the retail and consumer levels, with an estimated retail value of $162 billion in 2020. The European Union’s total food waste was estimated at 88 million tons in 2012, with 62 million tons coming from the wholesale and retail and household levels.
+            Households contributed the most to the total European Union’s food waste at about 53%, while processing added about 19%.
+        </p>
+        <p>
+            Below, we can see a plot of food loss around the world, with data since the year 2000. You can click on the labels to include or exclude a country from the representation, as well as use the range selector to choose
+            the starting year.
+        </p>
+    </div>
 }
 
 function AppNav() {
@@ -81,22 +118,8 @@ function Introduction() {
         <p>Food waste is a far-reaching problem with enormous environmental, ethical and financial costs globally. According to the Food and Agriculture Organization (FAO) of the United Nations, an estimated 1.3 billion tonnes of food is wasted across the world each year, which is one third of all food produced for human consumption. The majority of food wasted each year is estimated to come from households.
             Land is a limited and valuable source of Earth, but 28% of the world’s agricultural area that is used to produce food is eventually lost or wasted each year. The amount of food wasted or lost is enough to feed 815 million, which is four times the number of hungry people in the world.
         </p>
-        <h5>How the COVID-19 pandemic influenced food waste</h5>
         <p>
-            Before Covid-19, households were pinpointed as the largest source of food waste. However, the increased time at home because of the quarantine improved the consumer’s cooking practices and food management skills,
-            which led to an efficient food production at the consumer level that may somehow reduce food waste. Even though the pandemic has created massive disruptions in the food system and severe food shortages and people have better food management skills,
-            the problem of food waste still exists because food cannot reach the consumers end.
-            At the start of the pandemic, there were reports of farmers in the US and the UK dumping millions of liters of milk daily due to disrupted supply routes.
-        </p>
-        <h5>Food Loss and Waste</h5>
-        <p>
-            Global food waste is estimated at 1.3 billion tons per year, as FAO mentioned. Fresh fruits and vegetables lead global food waste at 45% of the global food production, with food waste from residential homes one of the largest rates.
-            The USDA estimates that food loss in the United States comprised 31% of the food supply at the retail and consumer levels, with an estimated retail value of $162 billion in 2020. The European Union’s total food waste was estimated at 88 million tons in 2012, with 62 million tons coming from the wholesale and retail and household levels.
-            Households contributed the most to the total European Union’s food waste at about 53%, while processing added about 19%.
-        </p>
-        <p>
-            Below, we can see a plot of food loss around the world, with data since the year 2000. You can click on the labels to include or exclude a country from the representation, as well as use the range selector to choose
-            the starting year.
+            Below, you can see a map of the world, where darker colors indicate a higher percentage of food waste. Data for the year 2018.
         </p>
     </div>
 }
