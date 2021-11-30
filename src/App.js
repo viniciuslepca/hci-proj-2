@@ -1,9 +1,13 @@
 import './App.css';
+import "tippy.js/dist/tippy.css";
+import "tippy.js/animations/scale.css";
+
 import React, {useState} from 'react';
 import {Form, Nav, Navbar, Dropdown} from 'react-bootstrap';
 import {Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Tooltip,} from 'chart.js';
 import {Scatter} from 'react-chartjs-2';
 import {Helmet} from "react-helmet";
+import ReactWordcloud from 'react-wordcloud';
 
 let foodWasteData = require("./food_waste.json");
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
@@ -49,6 +53,8 @@ class App extends React.Component {
                     <div style={{textAlign: "center"}}>
                         <Introduction/>
                         <WorldMap/>
+                        <p style={{textAlign: "left"}}>Below, you can see a word cloud that represents how commonly each type of food is wasted</p>
+                        <FoodWasteWordCloud data={this.state.data}/>
                         <FoodLossText/>
                         <WorldDataVis data={this.state.data} countries={this.state.countries} colors={this.state.colors}/>
                         <USFoodWaste/>
@@ -60,6 +66,32 @@ class App extends React.Component {
             </div>
         );
     }
+}
+
+function FoodWasteWordCloud(props) {
+    let grouped = {}
+
+    props.data.forEach(item => {
+        const commodity = item.commodity;
+        if (grouped.hasOwnProperty(commodity)) {
+            grouped[commodity].push(item.loss_percentage)
+        } else {
+            grouped[commodity] = [item.loss_percentage]
+        }
+    })
+
+    let words = [];
+    for (const [key, arr] of Object.entries(grouped)) {
+        words.push({
+            text: key,
+            value: arr.reduce((a, b) => a + b) / arr.length
+        })
+    }
+    console.log(words)
+
+    return <div style={{ height: 600, width: "100%" }}>
+        <ReactWordcloud words={words}/>
+    </div>
 }
 
 function WorldMap() {
