@@ -7,7 +7,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Running the website
 In order to run the website, follow these instructions:
 1. From the project root, run `npm install`
-2. Run `nom start`
+2. Run `npm start`
 3. The website will be available at `http://localhost:3000`
 
 You can also generate a static build using `npm run build`
