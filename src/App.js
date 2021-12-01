@@ -64,6 +64,7 @@ class App extends React.Component {
                         <Divider/>
                         <USFoodWaste/>
                         <USDataVis data={this.state.data.filter(item => item.country === "United States of America")} getRandomRgb={this.getRandomRgb}/>
+                        <USFoodLossText/>
                         <Divider/>
                         <Solutions/>
                     </div>
@@ -160,6 +161,14 @@ function Introduction() {
         </p>
         <p>
             Below, you can see a map of the world, where darker colors indicate a higher percentage of food waste. Data for the year 2018.
+        </p>
+    </div>
+}
+
+function USFoodLossText() {
+    return <div id="solutions" style={{textAlign: "left"}}>
+        <p>
+          Each year, around 108 billion pounds of food is wasted in the United States. That equates to more than $161 billion worth of food thrown away each year. It is shocking to say that nearly 40% of all food in America is wasted. Most of the foods have had a very consistent loss rate over the last 20 years. For instance, grapefruits keep a losing rate of 3% throughout the years, and so do tomatoes, cabbages, spinach, lettuce, and so on.  However, there are also some outliers shown on the scatter plot. For example, carrots and turnips have an unexpectedly high loss rate of 62.9 in years 2014 and 2018. Papaya, which only lost 5% in a normal year suddenly had a 64.5% loss rate in 2018. Food loss occurs for many reasons, with some types of loss-such as spoilage-occurring at every stage of the production and supply chain. Between the farm gate and retail stage, food loss can arise from problems during drying, transporting, or processing that exposes food to damage by insects, birds, and bacteria. At the retail level, equipment malfunction such as faulty cold storage can also result in food loss. Consumers also contribute to food loss when they buy or cook more than they need and choose to throw out the extras. However, what wasted the most since 2000 are the fruit juice categories: grateful juice lost about 46.7% every year, and pineapple juice lost about 41.3% each year. The new superfood cold-pressed juice not only brings a so-call healthier lifestyle to people but also tons of pulp waste that have wound up in landfills. Some Whole Foods stores devote nearly 40 feet of shelf space to cold-pressed or fresh-squeezed juices, while most cold-pressed juice only has a shelf life of 72 hours. The short expiry date of these products leads to a great amount of waste in this category.
         </p>
     </div>
 }
