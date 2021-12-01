@@ -53,6 +53,8 @@ class App extends React.Component {
                     <div style={{textAlign: "center"}}>
                         <Introduction/>
                         <WorldMap/>
+                        <WorldMapText/>
+                        <Divider/>
                         <p style={{textAlign: "left"}}>Below, you can see a word cloud that represents how commonly each type of food is wasted (percentage)</p>
                         <FoodWasteWordCloud data={this.state.data}/>
                         <WorldCloudText/>
@@ -166,6 +168,14 @@ function WorldCloudText() {
     return <div id="solutions" style={{textAlign: "left"}}>
         <p>
             The data indicates how some fruits and legumes such as dry lentils, grapes, and green beans tend to be wasted the least. Meanwhile other meats such as sea snails, pig, or sheep tend to be wasted the most. Also, fruit juices such as orange and pineapple juice are commonly wasted. Hovering over each category of food items shows how frequently they are wasted. The reasons for why foods are wasted tend to vary depending on the type of country. Food waste in developing countries mainly occurs in the earlier stages, such as harvesting or transportation. For medium or high-income countries, food loss occurs mainly in later supply chain stages, such as at the retail or consumer level.
+        </p>
+    </div>
+}
+
+function WorldMapText() {
+    return <div id="solutions" style={{textAlign: "left"}}>
+        <p>
+            Even though some parts of the data are missing from the map, it is unsurprising that some most developed countries generate the highest food waste totals. The U.S. came first with an estimated 15.1% of waste food annually, followed by Canada’s 8%. Elsewhere, it’s kind of surprising to see that Armenia has 16.96% food waste each year. In Armenia, food loss and waste unnecessarily and significantly contribute to greenhouse gas emissions and to climate change, by producing, processing, and distributing food that is eventually discarded. Germany led the food waste competition in the European Union by throwing 6.36% of the food into the garbage. Other than that, China also discarded tonnes of food annually, (which didn’t show on the map), and so did Indonesia because of the population of the countries.
         </p>
     </div>
 }
