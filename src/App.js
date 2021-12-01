@@ -58,6 +58,7 @@ class App extends React.Component {
                         <Divider/>
                         <FoodLossText/>
                         <WorldDataVis data={this.state.data} countries={this.state.countries} colors={this.state.colors}/>
+                        <WorldMapText/>
                         <Divider/>
                         <USFoodWaste/>
                         <USDataVis data={this.state.data.filter(item => item.country === "United States of America")} getRandomRgb={this.getRandomRgb}/>
@@ -157,6 +158,14 @@ function Introduction() {
         </p>
         <p>
             Below, you can see a map of the world, where darker colors indicate a higher percentage of food waste. Data for the year 2018.
+        </p>
+    </div>
+}
+
+function WorldMapText() {
+    return <div id="solutions" style={{textAlign: "left"}}>
+        <p>
+            The data indicates how some fruits and legumes such as dry lentils, grapes, and green beans tend to be wasted the least. Meanwhile other meats such as sea snails, pig, or sheep tend to be wasted the most. Also, fruit juices such as orange and pineapple juice are commonly wasted. Hovering over each category of food items shows how frequently they are wasted. The reasons for why foods are wasted tend to vary depending on the type of country. Food waste in developing countries mainly occurs in the earlier stages, such as harvesting or transportation. For medium or high-income countries, food loss occurs mainly in later supply chain stages, such as at the retail or consumer level.
         </p>
     </div>
 }
