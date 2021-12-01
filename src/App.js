@@ -488,6 +488,9 @@ function References() {
             <li><a href="https://www.fao.org/">https://www.fao.org/</a></li>
             <li><a href="https://www.cast-science.org/publication/economic-impacts-of-covid-19-on-food-and-agricultural-markets/">https://www.cast-science.org/publication/economic-impacts-of-covid-19-on-food-and-agricultural-markets/</a></li>
             <li><a href="https://www.ers.usda.gov/data-products/food-availability-per-capita-data-system/food-loss/"> https://www.ers.usda.gov/data-products/food-availability-per-capita-data-system/food-loss/</a></li>
+            <li><a href="https://www.unep.org/thinkeatsave/get-informed/worldwide-food-waste"> https://www.unep.org/thinkeatsave/get-informed/worldwide-food-waste </a></li>
+            <li><a href="https://www.bbc.com/news/world-52267943"> https://www.bbc.com/news/world-52267943</a></li>
+            <li><a href="https://www.weforum.org/agenda/2021/03/global-food-waste-solutions/"> https://www.weforum.org/agenda/2021/03/global-food-waste-solutions/</a></li>
         </ul>
     </div>
 }
